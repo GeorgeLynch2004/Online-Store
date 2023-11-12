@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+    </br>
+    <center>
+        {% for message in get_flashed_messages() %}
+            {{ message }}
+        {% endfor %}   
+        
+        
+        {% if name %}
+        <h1>Thanks for the review {{name}}!</h1>
+        {% else %}
+    </center>
+
+
+        <h1>Why not leave a review?</h1>
+        </br>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            {{ form.name.label(class="form-label") }}
+            {{ form.name(class="form-control") }}
+            </br>
+            {{ form.item.label(class="form-label") }}
+            {{ form.item(class="form-control") }}
+            </br>
+            {{ form.review.label(class="form-label") }}
+            {{ form.review(class="form-control") }}
+            </br>
+            {{ form.submit(class="btn btn-light") }}
+        </form>    
+</div>
+
+
+
+{% endif %}
+
+{% endblock %}

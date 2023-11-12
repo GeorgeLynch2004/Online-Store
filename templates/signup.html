@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+</br>
+<h1>Sign up Page</h1>
+<center>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}   
+</center>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+
+    {{ form.username.label(class="form-label") }}
+    {{ form.username(class="form-control") }}
+    </br>
+    {{ form.email.label(class="form-label") }}
+    {{ form.email(class="form-control") }}
+    </br>
+    {{ form.password1.label(class="form-label") }}
+    {{ form.password1(class="form-control") }}
+    </br>
+    {{ form.password2.label(class="form-label") }}
+    {{ form.password2(class="form-control") }}
+    </br>
+    {{ form.submit(class="btn btn-light") }}
+</form>
+
+<center><p>Already have an account? Log in <a href="/login">here</a></center>
+
+</div>
+
+
+{% endblock %}

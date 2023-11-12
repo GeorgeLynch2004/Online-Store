@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <center>
+
+
+
+    <div class="card text-center">
+        <div class="card-header">
+            {{data.name}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title"><img src=/static/images/item_images/{{data.image}} alt="Image failed to load" width="800" height="800"></h5>
+          <p class="card-text">
+            {{data.description}}</br>
+            </br>
+            <strong>Environmental Impact: {{data.impact}} units</strong></br>
+            </br>
+            <strong>Price: £{{ data.price }}</strong>
+          </p>
+            <div style="text-align: center;">
+                <div class="button-container">
+                    <form method="post" action="/basket/add">
+                        <button type="submit" class="btn btn-light" name="id" value="{{data.id}}">Add to basket</button>    
+                    </form>
+                    <form action="/items">
+                        <button type="submit" class="btn btn-light">Return to items</button>    
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+
+    <style>
+        .button-container { 
+            display: flex;
+            text-align: center;
+        }
+    
+        .button-container form {
+            display: inline-block;
+        }
+    
+        .button-container form button {
+            display: inline-block;
+        }
+    </style>
+
+{% endblock %}

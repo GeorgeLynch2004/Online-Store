@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+</br>
+<center>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}   
+</center>
+
+<div class="container">
+    <h1>Fill out details here for checkout</h1>
+    </br>
+    <strong>Your total amounts to: £{{total}}</strong>
+    <form method="POST">
+        <br>
+        {{ form.hidden_tag() }}
+
+        <strong>{{ form.cardholder.label(class="form-label") }}</strong>
+        {{ form.cardholder(class="form-control", placeholder="Enter the name on your credit card here") }}
+        <p id="name_helper"></p>
+        </br>
+        <strong>{{ form.telephone.label(class="form-label") }}</strong>
+        {{ form.telephone(class="form-control",placeholder="Enter your primary phone number here") }}
+        <p id="phone_helper"></p>
+        </br>
+        <table style="width:100%">
+            <th>
+            {{ form.address.label(class="form-label") }}
+            {{ form.address(class="form-control", placeholder="Enter your permanent home address here") }}
+            <p id="address_helper"></p>
+            </th>
+            <th>
+            {{ form.postcode.label(class="form-label") }}
+            {{ form.postcode(class="form-control", placeholder="Enter the postcode of your entered home address here") }}
+            <p id="postcode_helper"></p>
+            </th>
+        </table>
+        <strong>{{ form.card.label(class="form-label") }}</strong>
+        {{ form.card(class="form-control", id="card_id" ,onkeydown="credit_card()", placeholder="XXXX-XXXX-XXXX-XXXX") }}
+        <p id="verdict"></p>
+        </br>
+        <table style="width:100%">
+            <th>
+            {{ form.expiry.label(class="form-label") }}
+            {{ form.expiry(class="form-control", placeholder="Enter the expiry date on your card here (MM/YY)") }}
+            <p id="expiry_helper"></p>
+            </th>
+            <th>
+            {{ form.CVV.label(class="form-label") }}
+            {{ form.CVV(class="form-control", placeholder="Enter the 3-digit number on the back of your credit card here") }}
+            <p id="cvv_helper"></p>
+            </th>
+        </table>
+        <center>
+            {{ form.submit(class="btn btn-light") }}
+        </center>
+    </form>   
+    
+    <center><p>Changed your mind? Go back <a href="/basket">here</a></center>
+
+</div>
+
+
+<script>
+    function credit_card() {
+    // Get the credit card form field
+    const creditCardField = document.getElementById("card_id");
+
+    // Strip any dashes or spaces from the variable
+    const stripped_card = creditCardField.value.replace(/[\s-]/g, "");
+
+    // Define regex for allowed card formats
+    const length_allowed = /^\d{15}$/;
+    const dashes = /^(\d{4}-){3}\d{4}$/;
+    const spaces = /^(\d{4}\s){3}\d{4}$/;
+
+    // Check if the input matches any of the allowed patterns
+    if (length_allowed.test(stripped_card) || dashes.test(stripped_card) || spaces.test(stripped_card)) {
+        // If it does, display green text
+        creditCardField.style.color = "green";
+        document.getElementById("verdict").textContent = "Valid!";
+    } else {
+        // If it doesn't, display red text
+        creditCardField.style.color = "red";
+        document.getElementById("verdict").textContent = "Invalid.";
+    }
+    }
+
+</script>
+
+{% endblock %}

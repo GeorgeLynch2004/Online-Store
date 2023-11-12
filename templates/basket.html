@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+</br>
+<div class="container">
+    <h1>Basket Page</h1>
+    <br>
+    <p>You are logged in as:</p>
+    <strong>User ID: </strong>{{ current_user.id }}
+    <strong>Username: </strong>{{ current_user.username }}
+    <strong>Email: </strong>{{ current_user.email }}
+    <strong>Date Joined: </strong>{{ current_user.date_added }}
+    <a href="{{ url_for('logout') }}">Log out</a>
+    <br></br>
+    <strong>{{ current_user.username }}'s current basket:</strong>
+    <br>
+    {% for detail in data %}
+        <p>{{detail.name}}<br>
+            <img src="static/images/item_images/{{detail.image}}" alt="Image failed to load" length="10%" width="10%"></br>
+            £{{detail.price}}
+            
+            <form method="post" action="/basket/remove">
+                <button type="submit" class="btn btn-light" name="id" value="{{detail.id}}">remove from basket</button>    
+            </form>
+        </p>
+    {% endfor %}
+
+    <Strong>Your total amounts to: </Strong>£{{total}}
+
+    {% if total != 0 %}
+
+    <form action="/{{current_user.username}}/checkout">
+        <button type="submit" class="btn btn-light">Checkout</button>    
+    </form>    
+</div>
+
+
+{% endif %}
+
+{% endblock %}

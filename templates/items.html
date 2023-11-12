@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+</br>
+
+<center>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}   
+
+
+<h1>Items Page</h1>
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Order-by
+    </button>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/items">Don't Order</a></li>
+      <li><a class="dropdown-item" href="/price-low-to-high">Price low-to-high</a></li>
+      <li><a class="dropdown-item" href="/env-low-to-high">Environmental Impact low-to-high</a></li>
+      <li><a class="dropdown-item" href="/alphabetical">Alphabetical Order</a></li>
+</ul>
+</div>
+    <table>
+        <th>
+            <img src="static/images/banner1.png" alt="banner failed to load">
+        </th>
+        <th>
+            <table>
+                {% for item in data %}
+                {% if loop.index0 % 4 == 0 %}
+                    <tr>
+                {% endif %}
+
+                <td>
+                <div class="card" style="width: 18rem;">
+                    <img class="card-image-top" src=static/images/item_images/{{item.image}} alt="image couldn't load"></br>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }}</h5>
+                        <p class="card-text">Price: £{{item.price}}</p>
+                        <div class="button-container">
+                            <form action="/expansion/{{item.name}}">
+                                <button type="submit" class="btn btn-light">expand</button>    
+                            </form>
+                            <form method="post" action="/basket/add">
+                                <button type="submit" name="id" value="{{item.id}}" class="btn btn-light">Add to basket</button>    
+                            </form>
+                        <div>
+                    </div>
+                </div>
+
+                
+                {% if loop.index0 % 4 == 3 or loop.last %}
+                    </tr>
+                {% endif %}
+                {% endfor %}   
+            </table> 
+        </th>
+              
+        <th>
+            <img src="static/images/banner2.png" alt="banner failed to load">
+        </th>
+    </table>
+            
+</center>
+
+
+
+
+<center>
+    <a href="{{ url_for('logout') }}">Log out</a>  
+</center>
+
+<style>
+    .button-container { 
+        display: flex;
+    }
+
+    .button-container form {
+        display: inline-block;
+    }
+
+    .button-container form button {
+        display: inline-block;
+    }
+</style>
+
+{% endblock %}

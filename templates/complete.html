@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+</br>
+<center>
+    {% for message in get_flashed_messages() %}
+        {{ message }}
+    {% endfor %}   
+
+    <h1>Thank you for shopping at Spokes, {{name}}.</h1>
+
+    <form action="/items">
+        <button type="submit">Continue Shopping?</button>    
+    </form>
+</center>
+
+
+{% endblock %}
